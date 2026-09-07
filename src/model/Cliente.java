@@ -19,6 +19,9 @@ public class Cliente {
 	 this.email = email;
 	 
  }
+ public Cliente() {
+	// TODO Auto-generated constructor stub
+}
  public String getCPF() {
 	return CPF;
  }
