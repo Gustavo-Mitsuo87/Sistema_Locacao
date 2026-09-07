@@ -27,7 +27,6 @@ id_categoria INT PRIMARY KEY AUTO_INCREMENT,
 nome_categoria VARCHAR(80) NOT NULL,
 descricao VARCHAR(300) NOT NULL,
 -- Quando for pro Java, coloca em BigDecimal porque a precisão dele é exata, n arredonda
-preco_diaria DECIMAL(10, 2) NOT NULL,
 valor_seguro DECIMAL(10,2) NOT NULL,
 valor_caucao DECIMAL(10,2) NOT NULL,
 valor_fixo_diaria DECIMAL(10,2) NOT NULL
@@ -68,5 +67,7 @@ valor_seguro DECIMAL(10,2) NOT NULL,
 valor_caucao DECIMAL(10,2) NOT NULL,
 valor_fixo_diaria DECIMAL(10,2) NOT NULL,
 -- No java isso ficará valor total = (qtd_dias X valor_fixo_diaria) + valor_seguro + valor_caucao
+-- O valor_locacao é (qtd_dias X valor_fixo_diaria), eu fiz assim para n depender exclusivamente da Categoria, que pode alterar os preços com o tempo, enquanto locações podem ter valores diferentes com o passar do tempo
+valor_locacao DECIMAL(10,2) NOT NULL
 valor_total DECIMAL(10,2) NOT NULL
 );
