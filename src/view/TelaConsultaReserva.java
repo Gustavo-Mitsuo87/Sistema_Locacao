@@ -1,5 +1,118 @@
 package view;
 
-public class TelaConsultaReserva {
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import controller.ReservaController;
+import model.Reserva;
+
+public class TelaConsultaReserva extends JPanel{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final JTextField txtBusca = new JTextField(20);
+	private final DefaultTableModel modelo_tabela = new DefaultTableModel(
+			new Object[] {"Código da Reserva", "CPF do Cliente", "ID da Categoria", "Data da Reserva", "Data Início", "Data Fim", "Status"}, 0
+			) {
+		public boolean isCellEditable(int l, int c) {
+			return false;
+		}
+	};
+	private final JTable tabela = new JTable(modelo_tabela);
+	private final ReservaController controller;
+
+	
+
+	
+	private void montar() {
+		JPanel j = new JPanel(new GridBagLayout());
+		j.setBorder(BorderFactory.createTitledBorder("Consulta de Reservas"));
+		
+		GridBagConstraints organizador = new GridBagConstraints();
+		organizador.insets = new Insets(3,4,3,4);
+		organizador.anchor = GridBagConstraints.WEST;
+		//adicionar(j, organizador, 0, "Digite o código da reserva:", txtBusca);
+		organizador.gridx = 1;
+		organizador.gridy = 6;
+		JButton buscar = new JButton("Buscar");
+		JButton selecionar = new JButton("Selecionar Reserva");
+		JPanel pesquisa = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		pesquisa.add(new JLabel("Digite o código da reserva:"));
+		pesquisa.add(txtBusca);
+		pesquisa.add(buscar);
+		JPanel centro = new JPanel(new BorderLayout());
+		centro.add(pesquisa, BorderLayout.NORTH);
+		centro.add(new JScrollPane(tabela), BorderLayout.CENTER);
+		centro.add(selecionar, BorderLayout.SOUTH);
+		add(centro, BorderLayout.CENTER);
+		tabela.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+		buscar.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						controller.buscar();
+					}
+				}
+				);
+		selecionar.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						controller.selecionarLinha();
+					}
+				}
+				);
+		
+		
+	}
+	public void limpar() {
+		txtBusca.setText("");
+	}
+	
+	public void preencherTabela(List<Reserva> lista) {
+		modelo_tabela.setRowCount(0);
+		int i;
+		for(i = 0; i < lista.size(); i++) {
+			Reserva reserva = lista.get(i);
+			modelo_tabela.addRow(new Object[] {
+					reserva.getCodigo_reserva(),
+					reserva.getCliente().getCPF(),
+					reserva.getCategoria().getId_categoria(),
+					reserva.getData_reserva(),
+					reserva.getData_inicio_reserv(),
+					reserva.getData_fim_reserv(),
+					reserva.getStatus_reserva()
+					});
+		}
+	}
+	
+	public TelaConsultaReserva() {
+		setLayout(new BorderLayout(8,8));
+		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		controller = new ReservaController(this);
+		montar();
+		controller.carregarTabela();
+	}
+	
+	public JTextField getTxtBusca() {
+		return txtBusca;
+	}
+	public JTable getTabela() {
+		return tabela;
+	}
 }
