@@ -14,7 +14,7 @@ public class TelaTeste extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
-		add(new TelaConsultaReserva());
+		add(new TelaConsultaCarro());
 		setVisible(true);
 	}
 	
