@@ -81,10 +81,12 @@ public class TelaCadastroCliente extends JPanel {
 		JPanel botoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JButton novo = new JButton("Novo"), 
 				salvar = new JButton("Salvar"), 
-				limpar = new JButton("Limpar");
+				limpar = new JButton("Limpar"),
+				excluir = new JButton("Excluir");
 		botoes.add(novo);
 		botoes.add(salvar);
 		botoes.add(limpar);
+		botoes.add(excluir);
 		JPanel topo = new JPanel(new BorderLayout());
 		topo.add(formulario, BorderLayout.CENTER);
 		topo.add(botoes, BorderLayout.SOUTH);
@@ -115,6 +117,12 @@ public class TelaCadastroCliente extends JPanel {
 				}
 				);
 		
+		excluir.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						controller.excluir();
+					}
+		});
 		tabela.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				controller.selecionarLinha();

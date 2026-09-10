@@ -54,7 +54,28 @@ public class ClienteController {
 			carregarTabela();
 		} catch (Exception e) {
 			erro(e);
+			}
 		}
+	
+		public void excluir() {
+			String cpf = tela.getTxtCpf().getText();
+			
+			if (cpf.isEmpty()) {
+				mensagem("Selecione um cliente.", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			if(JOptionPane.showConfirmDialog(tela, "Deseja excluir esse cliente?", "Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				try {
+					dao.excluir(cpf);
+					mensagem("Cliente excluído.", JOptionPane.INFORMATION_MESSAGE);
+					limpar();
+					carregarTabela();
+				} catch (SQLException e) {
+					erro(e);
+				}
+			}
+			
+		
 		
 	}
 	private Cliente lerFormulario() {

@@ -53,9 +53,24 @@ public void atualizar(Cliente cliente) throws SQLException {
 		if(stmt.executeUpdate() == 0) throw new SQLException("Cliente não encontrado");
 	} finally {
 		Conexao.fechar(conexao, stmt, null);
+	}}
+
+	public void excluir(String cpf) throws SQLException {
+		String sql = "DELETE FROM cliente WHERE cpf_clie = ?";
+		Connection conexao = null;
+		PreparedStatement stmt = null;
+		try {
+			conexao = Conexao.abrir();
+			stmt = conexao.prepareStatement(sql);
+			stmt.setString(1, cpf);
+			int linhas_afetadas = stmt.executeUpdate();
+			if (linhas_afetadas == 0) throw new SQLException("Cliente não encontrado.");
+		} finally {
+			Conexao.fechar(conexao, stmt, null);
+		}
+				
 	}
-	
-};
+
 //Faz a consulta padrão no MySQL
 
 private Cliente mapear(ResultSet rs) throws SQLException {

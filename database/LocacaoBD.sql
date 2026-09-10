@@ -116,17 +116,10 @@ VALUES
 (placa, modelo, marca, ano, status_disponibilidade, id_categoria)
 VALUES
 ('ABC1D23', 'Onix', 'Chevrolet', 2023, 'DISPONÍVEL', 1),
-
 ('DEF4G56', 'HB20', 'Hyundai', 2024, 'ALUGADO', 1),
-
 ('GHI7J89', 'Corolla', 'Toyota', 2022, 'DISPONÍVEL', 2),
-
 ('JKL1M23', 'Civic', 'Honda', 2023, 'DISPONÍVEL', 2),
-
 ('MNO4P56', 'T-Cross', 'Volkswagen', 2024, 'ALUGADO', 3),
-
 ('QRS7T89', 'Compass', 'Jeep', 2023, 'DISPONÍVEL', 3),
-
 ('UVW1X23', 'BMW 320i', 'BMW', 2022, 'EM MANUTENÇÃO', 4),
-
 ('YZA4B56', 'Mercedes-Benz C180', 'Mercedes-Benz', 2024, 'DISPONÍVEL', 4);
