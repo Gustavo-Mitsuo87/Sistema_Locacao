@@ -12,6 +12,8 @@ public class TelaLocacao extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
+	private TelaPrincipal tela;
+	
 	private final JLabel lblNome = new JLabel("Nome: "),
 			lblCPF = new JLabel("CPF: "),
 			lblCNH = new JLabel("CNH: "),
@@ -35,7 +37,8 @@ public class TelaLocacao extends JPanel{
 			txtTotal = new JTextField();
 			
 	
-	public TelaLocacao() {
+	public TelaLocacao(TelaPrincipal tela) {
+		this.tela = tela;
 		montar();
 	}
 	
@@ -134,7 +137,7 @@ public class TelaLocacao extends JPanel{
 		
 		confirma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				tela.mostrarTela(new TelaResumoLocacao(tela));
 			}
 		});
 		
