@@ -2,13 +2,13 @@ package app;
 
 import javax.swing.SwingUtilities;
 
-import view.TelaPrincipal;
+import view.TelaTeste;
 
 public class Main {
 	public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                TelaPrincipal tela = new TelaPrincipal();
+                TelaTeste tela = new TelaTeste();
                 tela.setVisible(true);
             }
         });

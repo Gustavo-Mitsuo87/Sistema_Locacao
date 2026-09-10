@@ -5,12 +5,17 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import controller.PrincipalController;
 
 import javax.swing.*;
 
 public class TelaPrincipal extends JFrame{
 
 	private static final long serialVersionUID = 1L;
+	
+	private final PrincipalController controller; 
 	
 	public TelaPrincipal() {
 		super("Locadora");
@@ -19,6 +24,7 @@ public class TelaPrincipal extends JFrame{
 		setSize(900, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		controller = new PrincipalController(this);
 		
 		montar();
 	}
@@ -56,6 +62,37 @@ public class TelaPrincipal extends JFrame{
 		centralizador.add(area);
 
 		add(centralizador, BorderLayout.CENTER);
+		
+		nova.addActionListener(
+			      new ActionListener() {
+			        public void actionPerformed(ActionEvent e) {
+			          controller.novaLocacao();
+			        }
+			      }
+			    );
+		
+		consulta.addActionListener(
+			      new ActionListener() {
+			        public void actionPerformed(ActionEvent e) {
+			          controller.consultaReserva();
+			        }
+			      }
+			    );
+		
+		carro.addActionListener(
+			      new ActionListener() {
+			        public void actionPerformed(ActionEvent e) {
+			          controller.consutaCarro();
+			        }
+			      }
+			    );
 	}
+
+	public void mostrarTelaPrincipal() {
+		setContentPane(new TelaPrincipal());
+        revalidate(); // Diz pro Swing reorganizar a interface pois houve uma mudança
+        repaint(); // Aqui é para redesenhar a a interface da tela pro Swing 
+	}
+	
 	
 }

@@ -10,11 +10,11 @@ public class TelaTeste extends JFrame{
 
 	public TelaTeste() {
 		setTitle("Teste");
-		setSize(700,300);
+		setSize(900,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
-		add(new TelaConsultaCarro());
+		add(new TelaResumoLocacao());
 		setVisible(true);
 	}
 	
