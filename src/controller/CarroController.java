@@ -89,12 +89,16 @@ public class CarroController {
 	        try {
 				//Pegando a lista de clientes e transformando em objeto para ser passado para a próxima tela
 				Carro carro_selecionado = carro.get(0);
-				TelaPrincipal j_frame = (TelaPrincipal) tela.getTopLevelAncestor();
-				if (cliente != null) {
-					j_frame.mostrarTela(new TelaLocacao(cliente, carro_selecionado));
-				} else {
-					j_frame.mostrarTela(new TelaLocacao(reserva, carro_selecionado));
-				}
+				TelaPrincipal j_frame =  (TelaPrincipal) javax.swing.SwingUtilities.getWindowAncestor(tela);
+			    if (j_frame != null) {
+			        if (cliente != null) {
+			            j_frame.mostrarTela(new TelaLocacao(cliente, carro_selecionado));
+			        } else {
+			            j_frame.mostrarTela(new TelaLocacao(reserva, carro_selecionado));
+			        }
+			    } else {
+			        System.out.println("Erro: Não foi possível encontrar a TelaPrincipal (JFrame) no topo desta tela.");
+			    }
 				
 			} catch(Exception e) {
 				erro(e);

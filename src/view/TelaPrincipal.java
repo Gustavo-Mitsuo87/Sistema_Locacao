@@ -84,12 +84,13 @@ public class TelaPrincipal extends JFrame{
         repaint(); // Aqui é para redesenhar a a interface da tela pro Swing 
 	}
 	
-
-	public void mostrarTela(JPanel tela) {
-	    setContentPane(tela);
-	    revalidate();
-	    repaint();
+	public void mostrarTela(JPanel novaTela) {
+	    getContentPane().removeAll(); 
+	    getContentPane().add(novaTela, BorderLayout.CENTER); 
+	    getContentPane().revalidate(); // Força o Java a recalcular o tamanho e layout dos novos componentes
+	    getContentPane().repaint();    // Força a tela a se pintar fisicamente de novo na área gráfica
 	}
+
 
 	
 }

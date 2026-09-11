@@ -16,10 +16,10 @@ public class TelaLocacao extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private TelaPrincipal tela;
 	private Cliente cliente;
-	private Carro carro;
 	private Reserva reserva;
+	private Carro carro;
+
 	
 	private final JLabel lblNome = new JLabel("Nome: "),
 			lblCPF = new JLabel("CPF: "),
@@ -44,11 +44,10 @@ public class TelaLocacao extends JPanel{
 			txtTotal = new JTextField();
 			
 	
-	public TelaLocacao(TelaPrincipal tela, Cliente cliente, Carro carro) {
-		this.tela = tela;
+	public TelaLocacao(Cliente cliente, Carro carro) {
+		
 		this.cliente = cliente;
 		this.carro = carro;
-		montar();
 		
 		txtNome.setText(cliente.getNome());
 		txtCPF.setText(cliente.getCPF());
@@ -58,27 +57,33 @@ public class TelaLocacao extends JPanel{
 		txtPlaca.setText(carro.getPlaca());
 		txtCategoria.setText(carro.getCategoria().getNome_categoria());
 		txtDiaria.setText(carro.getCategoria().getValor_fixo_diaria().toString());
-	    
+		
+		
+		montar();
+		
+	    revalidate();
+	    repaint();
 	}
 	
 	public TelaLocacao(Reserva reserva, Carro carro) {
-		System.out.println("Reserva recebido:");
-		System.out.println("código: " + reserva.getCodigo_reserva());
-		System.out.println("data " + reserva.getData_inicio_reserv());
-		System.out.println("Carro recebido:");
-		System.out.println("Modelo: " + carro.getModelo());
-		System.out.println("Ano: " + carro.getAno());
-		montar();
-	}
-	
-	public TelaLocacao(Cliente cliente, Carro carro) {
-		System.out.println("Cliente recebido:");
-		System.out.println("Nome: " + cliente.getNome());
-		System.out.println("CPF: " + cliente.getCPF());
-		System.out.println("Carro recebido:");
-		System.out.println("Modelo: " + carro.getModelo());
-		System.out.println("Ano: " + carro.getAno());
-		montar();
+
+	    this.reserva = reserva;
+	    this.carro = carro;
+
+	    txtNome.setText(reserva.getCliente().getNome());
+	    txtCPF.setText(reserva.getCliente().getCPF());
+	    txtCNH.setText(reserva.getCliente().getCNH());
+
+	    txtVeiculo.setText(carro.getModelo());
+	    txtPlaca.setText(carro.getPlaca());
+
+	    txtCategoria.setText(carro.getCategoria().getNome_categoria());
+	    txtDiaria.setText(carro.getCategoria().getValor_fixo_diaria().toString());
+	    
+	    montar();
+	    
+	    revalidate();
+	    repaint();
 	}
 	
 	private void montar() {
@@ -176,7 +181,8 @@ public class TelaLocacao extends JPanel{
 		
 		confirma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tela.mostrarTela(new TelaResumoLocacao(tela));
+				TelaPrincipal principal = (TelaPrincipal) getTopLevelAncestor();
+		        principal.mostrarTela(new TelaResumoLocacao(principal));
 			}
 		});
 		

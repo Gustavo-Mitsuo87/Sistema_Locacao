@@ -21,11 +21,13 @@ public class CarroDAO {
 		
 		Categoria categoria = new Categoria();
 		categoria.setId_categoria(rs.getInt("id_categoria"));
+		
+		categoria.setNome_categoria(rs.getString("nome_categoria"));
+		categoria.setValor_fixo_diaria(rs.getBigDecimal("valor_fixo_diaria")); 
+		
 		carro.setCategoria(categoria);
 		carro.setStatus_disponibilidade(rs.getString("status_disponibilidade"));
 		return carro;
-		
-		
 	}
 
 	private List<Carro> consultar(String sql, Object parametro) throws SQLException {
@@ -44,14 +46,22 @@ public class CarroDAO {
 		} finally {
 			Conexao.fechar(conexao, stmt, rs);
 		}
-		
 	}
 
+	
 	public List<Carro> buscarPorPlaca(String placa) throws SQLException {
-		return consultar("SELECT * FROM carro WHERE TRIM(placa) LIKE ?",
-      "%" + placa.trim() + "%");
+		String sql = "SELECT c.*, cat.nome_categoria, cat.valor_fixo_diaria " +
+		             "FROM carro c " +
+		             "INNER JOIN categoria_carro cat ON c.id_categoria = cat.id_categoria " +
+		             "WHERE TRIM(c.placa) LIKE ?";
+		return consultar(sql, "%" + placa.trim() + "%");
 	}
+
+
 	public List<Carro> listarTodos() throws SQLException {
-		return consultar("SELECT * FROM carro", null);
+		String sql = "SELECT c.*, cat.nome_categoria, cat.valor_fixo_diaria " +
+		             "FROM carro c " +
+		             "INNER JOIN categoria_carro cat ON c.id_categoria = cat.id_categoria";
+		return consultar(sql, null);
 	}
 }
