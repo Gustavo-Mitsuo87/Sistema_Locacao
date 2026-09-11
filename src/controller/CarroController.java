@@ -12,7 +12,6 @@ import model.Reserva;
 import view.TelaConsultaCarro;
 import view.TelaLocacao;
 import view.TelaPrincipal;
-import view.TelaTeste;
 
 
 public class CarroController {

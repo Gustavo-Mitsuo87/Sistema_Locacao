@@ -13,7 +13,6 @@ import model.Cliente;
 import view.TelaCadastroCliente;
 import view.TelaConsultaCarro;
 import view.TelaPrincipal;
-import view.TelaTeste;
 
 public class ClienteController {
 
@@ -92,6 +91,7 @@ public class ClienteController {
 				} catch(Exception e) {
 					erro(e);
 				}}
+		
 				
 			
 		

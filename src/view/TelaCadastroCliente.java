@@ -133,6 +133,8 @@ public class TelaCadastroCliente extends JPanel {
 					}}
 				);
 		
+		
+		
 		;
 		tabela.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
