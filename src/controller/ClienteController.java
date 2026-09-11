@@ -11,11 +11,14 @@ import javax.swing.JOptionPane;
 import dao.ClienteDAO;
 import model.Cliente;
 import view.TelaCadastroCliente;
+import view.TelaConsultaCarro;
+import view.TelaPrincipal;
 
 public class ClienteController {
 
 	private final TelaCadastroCliente tela;
 	private final ClienteDAO dao;
+	private List<Cliente> lista;
 	public boolean editando;
 	
 	public ClienteController(TelaCadastroCliente tela) {
@@ -72,12 +75,30 @@ public class ClienteController {
 					carregarTabela();
 				} catch (SQLException e) {
 					erro(e);
-				}
+				}}
 			}
+		
+			public void selecionar() {
+				int linha = tela.getTabela().getSelectedRow();
+				
+				if (linha < 0) return;
+				
+				try {
+					//Pegando a lista de clientes e transformando em objeto para ser passado para a próxima tela
+					Cliente cliente_selecionado = lista.get(linha);
+					TelaPrincipal j_frame = (TelaPrincipal) tela.getTopLevelAncestor();
+					j_frame.mostrarTela(new TelaConsultaCarro(cliente_selecionado));
+				} catch(Exception e) {
+					erro(e);
+				}}
+		
+				
 			
 		
 		
-	}
+	
+
+
 	private Cliente lerFormulario() {
 		Cliente cliente = new Cliente();
 		cliente.setCPF(tela.getTxtCpf().getText().trim());
@@ -96,7 +117,7 @@ public class ClienteController {
 	
 	private void consultar() {
 		try{
-			List<Cliente> lista = dao.listarTodos();
+			lista = dao.listarTodos();
 			tela.preencherTabela(lista);
 		} catch (SQLException e) {
 			erro(e);

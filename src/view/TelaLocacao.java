@@ -61,6 +61,26 @@ public class TelaLocacao extends JPanel{
 	    
 	}
 	
+	public TelaLocacao(Reserva reserva, Carro carro) {
+		System.out.println("Reserva recebido:");
+		System.out.println("código: " + reserva.getCodigo_reserva());
+		System.out.println("data " + reserva.getData_inicio_reserv());
+		System.out.println("Carro recebido:");
+		System.out.println("Modelo: " + carro.getModelo());
+		System.out.println("Ano: " + carro.getAno());
+		montar();
+	}
+	
+	public TelaLocacao(Cliente cliente, Carro carro) {
+		System.out.println("Cliente recebido:");
+		System.out.println("Nome: " + cliente.getNome());
+		System.out.println("CPF: " + cliente.getCPF());
+		System.out.println("Carro recebido:");
+		System.out.println("Modelo: " + carro.getModelo());
+		System.out.println("Ano: " + carro.getAno());
+		montar();
+	}
+	
 	private void montar() {
 		
 		txtNome.setEditable(false);          

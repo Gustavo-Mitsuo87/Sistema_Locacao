@@ -6,16 +6,22 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import dao.ReservaDAO;
+
 import model.Reserva;
+import view.TelaConsultaCarro;
 import view.TelaConsultaReserva;
+import view.TelaPrincipal;
+
 
 public class ReservaController {
 	private final TelaConsultaReserva tela;
 	private final ReservaDAO dao;
+	private List<Reserva> lista;
 	
 	public ReservaController(TelaConsultaReserva tela) {
 		this.tela = tela;
 		this.dao = new ReservaDAO();
+		
 	}
 	//Selecionar e buscar
 	public void carregarTabela() {
@@ -31,14 +37,14 @@ public class ReservaController {
 			if(filtro) {
 				Reserva reserva = dao.buscarPorCodigo(Integer.valueOf(tela.getTxtBusca().getText()));
 				if(reserva != null) {
-					List<Reserva> lista = List.of(reserva);
+					lista = List.of(reserva);
 					tela.preencherTabela(lista);
 				} else {
 					tela.preencherTabela(List.of());
 					mensagem("Reserva não encontrada.", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} else {
-				List<Reserva> lista =  dao.listarTodos();
+			    lista =  dao.listarTodos();
 				tela.preencherTabela(lista);
 			}
 			
@@ -80,8 +86,14 @@ public class ReservaController {
 	            mensagem("Reserva não encontrada.", JOptionPane.ERROR_MESSAGE);
 	            return;
 	        }
-	        //Aqui você assume Mitsuo
-	        //telaLocacao = new TelaLocacao(reserva);
+	        try {
+				//Pegando a lista de clientes e transformando em objeto para ser passado para a próxima tela
+				Reserva reserva_selecionada = lista.get(linha);
+				TelaPrincipal j_frame = (TelaPrincipal) tela.getTopLevelAncestor();
+				j_frame.mostrarTela(new TelaConsultaCarro(reserva_selecionada));
+			} catch(Exception e) {
+				erro(e);
+			}
 		
 		
 	} catch (SQLException e) {
