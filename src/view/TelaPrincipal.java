@@ -46,16 +46,13 @@ public class TelaPrincipal extends JFrame{
 		area.add(info);
 		
 		JButton nova = new JButton("Nova Locação"),
-				consulta = new JButton("Consultar Reservas"),
-				carro = new JButton("Consultar Carros");
+				consulta = new JButton("Consultar Reservas");
 		
 		nova.setFont(new Font("", Font.BOLD, 13));
 		consulta.setFont(new Font("", Font.BOLD, 13));
-		carro.setFont(new Font("", Font.BOLD, 13));
 		
 		area.add(nova);
 		area.add(consulta);
-		area.add(carro);
 
 		
 		JPanel centralizador = new JPanel(new GridBagLayout());
@@ -79,13 +76,6 @@ public class TelaPrincipal extends JFrame{
 			      }
 			    );
 		
-		carro.addActionListener(
-			      new ActionListener() {
-			        public void actionPerformed(ActionEvent e) {
-			          controller.consutaCarro();
-			        }
-			      }
-			    );
 	}
 
 	public void mostrarTelaPrincipal() {

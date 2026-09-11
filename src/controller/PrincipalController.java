@@ -7,7 +7,7 @@ import view.TelaConsultaReserva;
 import javax.swing.JOptionPane;
 
 import view.TelaCadastroCliente;
-import view.TelaConsultaCarro;
+
 
 public class PrincipalController {
 
@@ -39,9 +39,5 @@ public class PrincipalController {
 		
 	}
 
-	public void consutaCarro() {
-		tela.mostrarTela(new TelaConsultaCarro());
-		
-	}
 	
 }
