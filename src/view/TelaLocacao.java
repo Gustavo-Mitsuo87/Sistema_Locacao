@@ -8,11 +8,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import model.Cliente;
+import model.Reserva;
+import model.Carro;
+
 public class TelaLocacao extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
 	private TelaPrincipal tela;
+	private Cliente cliente;
+	private Carro carro;
+	private Reserva reserva;
 	
 	private final JLabel lblNome = new JLabel("Nome: "),
 			lblCPF = new JLabel("CPF: "),
@@ -37,9 +44,21 @@ public class TelaLocacao extends JPanel{
 			txtTotal = new JTextField();
 			
 	
-	public TelaLocacao(TelaPrincipal tela) {
+	public TelaLocacao(TelaPrincipal tela, Cliente cliente, Carro carro) {
 		this.tela = tela;
+		this.cliente = cliente;
+		this.carro = carro;
 		montar();
+		
+		txtNome.setText(cliente.getNome());
+		txtCPF.setText(cliente.getCPF());
+		txtCNH.setText(cliente.getCNH());
+
+		txtVeiculo.setText(carro.getModelo());
+		txtPlaca.setText(carro.getPlaca());
+		txtCategoria.setText(carro.getCategoria().getNome_categoria());
+		txtDiaria.setText(carro.getCategoria().getValor_fixo_diaria().toString());
+	    
 	}
 	
 	private void montar() {
