@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import controller.CarroController;
 
 import model.Carro;
+import model.Cliente;
+import model.Reserva;
 
 
 public class TelaConsultaCarro extends JPanel{
@@ -29,6 +31,8 @@ public class TelaConsultaCarro extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Cliente cliente;
+	private Reserva reserva;
 	private final JTextField txtBusca = new JTextField(20);
 	private final DefaultTableModel modelo_tabela = new DefaultTableModel(
 			new Object[] {"Placa", "Modelo", "Marca", "Ano", "id_categoria", "Status"}, 0
@@ -103,10 +107,30 @@ public class TelaConsultaCarro extends JPanel{
 		}
 	}
 	
-	public TelaConsultaCarro() {
+	
+	
+	public TelaConsultaCarro(Cliente cliente) {
+		//Para receber o cliente da próxima tela
+		this.cliente = cliente;
+		System.out.println("Cliente recebido:");
+		System.out.println("Nome: " + cliente.getNome());
+		System.out.println("CPF: " + cliente.getCPF());
 		setLayout(new BorderLayout(8,8));
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		controller = new CarroController(this);
+		controller = new CarroController(this, cliente);
+		montar();
+		controller.carregarTabela();
+	}
+	
+	public TelaConsultaCarro(Reserva reserva) {
+		//Para receber o cliente da próxima tela
+		this.reserva = reserva;
+		System.out.println("Reserva recebido:");
+		System.out.println("Código: " + reserva.getCodigo_reserva());
+		System.out.println("Data: " + reserva.getData_inicio_reserv());
+		setLayout(new BorderLayout(8,8));
+		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		controller = new CarroController(this, reserva);
 		montar();
 		controller.carregarTabela();
 	}

@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class TelaTeste extends JFrame{
 	/**
@@ -17,5 +18,7 @@ public class TelaTeste extends JFrame{
 		add(new TelaCadastroCliente());
 		setVisible(true);
 	}
+	
+	
 	
 }

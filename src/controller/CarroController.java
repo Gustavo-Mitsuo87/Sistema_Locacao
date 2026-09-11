@@ -7,14 +7,28 @@ import javax.swing.JOptionPane;
 
 import dao.CarroDAO;
 import model.Carro;
+import model.Cliente;
+import model.Reserva;
 import view.TelaConsultaCarro;
+import view.TelaLocacao;
+import view.TelaPrincipal;
+import view.TelaTeste;
 
 
 public class CarroController {
 	private final TelaConsultaCarro tela;
 	private final CarroDAO dao;
+	private Cliente cliente;
+	private Reserva reserva;
 	
-	public CarroController(TelaConsultaCarro tela) {
+	public CarroController(TelaConsultaCarro tela, Cliente cliente) {
+		this.cliente = cliente;
+		this.tela = tela;
+		this.dao = new CarroDAO();
+	}
+	
+	public CarroController(TelaConsultaCarro tela, Reserva reserva) {
+		this.reserva = reserva;
 		this.tela = tela;
 		this.dao = new CarroDAO();
 	}
@@ -72,8 +86,20 @@ public class CarroController {
 	            mensagem("Carro não encontrado.", JOptionPane.ERROR_MESSAGE);
 	            return;
 	        }
-	        //Aqui você assume Mitsuo
-	        //telaLocacao = new TelaLocacao(reserva);
+	      
+	        try {
+				//Pegando a lista de clientes e transformando em objeto para ser passado para a próxima tela
+				Carro carro_selecionado = carro.get(0);
+				TelaPrincipal j_frame = (TelaPrincipal) tela.getTopLevelAncestor();
+				if (cliente != null) {
+					j_frame.mostrarTela(new TelaLocacao(cliente, carro_selecionado));
+				} else {
+					j_frame.mostrarTela(new TelaLocacao(reserva, carro_selecionado));
+				}
+				
+			} catch(Exception e) {
+				erro(e);
+			}
 		
 		
 	} catch (SQLException e) {
