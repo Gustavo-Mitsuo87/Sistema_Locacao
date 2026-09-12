@@ -79,9 +79,10 @@ public class TelaPrincipal extends JFrame{
 	}
 
 	public void mostrarTelaPrincipal() {
-		setContentPane(new TelaPrincipal());
-        revalidate(); // Diz pro Swing reorganizar a interface pois houve uma mudança
-        repaint(); // Aqui é para redesenhar a a interface da tela pro Swing 
+	    getContentPane().removeAll();
+	    montar();
+	    revalidate();
+	    repaint();
 	}
 	
 	public void mostrarTela(JPanel novaTela) {

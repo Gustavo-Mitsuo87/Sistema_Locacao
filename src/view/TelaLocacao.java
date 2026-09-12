@@ -11,6 +11,7 @@ import javax.swing.*;
 import model.Cliente;
 import model.Reserva;
 import model.Carro;
+import controller.LocacaoController;
 
 public class TelaLocacao extends JPanel{
 
@@ -19,6 +20,7 @@ public class TelaLocacao extends JPanel{
 	private Cliente cliente;
 	private Reserva reserva;
 	private Carro carro;
+	private LocacaoController controller;
 
 	
 	private final JLabel lblNome = new JLabel("Nome: "),
@@ -58,6 +60,7 @@ public class TelaLocacao extends JPanel{
 		txtCategoria.setText(carro.getCategoria().getNome_categoria());
 		txtDiaria.setText(carro.getCategoria().getValor_fixo_diaria().toString());
 		
+		this.controller = new LocacaoController(this, cliente, carro);
 		
 		montar();
 		
@@ -69,6 +72,7 @@ public class TelaLocacao extends JPanel{
 
 	    this.reserva = reserva;
 	    this.carro = carro;
+	    this.cliente = reserva.getCliente();
 
 	    txtNome.setText(reserva.getCliente().getNome());
 	    txtCPF.setText(reserva.getCliente().getCPF());
@@ -80,8 +84,9 @@ public class TelaLocacao extends JPanel{
 	    txtCategoria.setText(carro.getCategoria().getNome_categoria());
 	    txtDiaria.setText(carro.getCategoria().getValor_fixo_diaria().toString());
 	    
-	    montar();
+	    this.controller = new LocacaoController(this, this.cliente, carro);
 	    
+	    montar();
 	    revalidate();
 	    repaint();
 	}
@@ -118,16 +123,6 @@ public class TelaLocacao extends JPanel{
 	    txtCategoria.setOpaque(false);            
 	    txtCategoria.setFocusable(false); 
 	    
-	    txtRetirada.setEditable(false);          
-	    txtRetirada.setBorder(null);             
-	    txtRetirada.setOpaque(false);            
-	    txtRetirada.setFocusable(false); 
-	    
-	    txtDevolucao.setEditable(false);          
-	    txtDevolucao.setBorder(null);             
-	    txtDevolucao.setOpaque(false);            
-	    txtDevolucao.setFocusable(false);
-	    
 	    txtDiaria.setEditable(false);          
 	    txtDiaria.setBorder(null);             
 	    txtDiaria.setOpaque(false);            
@@ -145,33 +140,43 @@ public class TelaLocacao extends JPanel{
 	    centro.setLayout(new BoxLayout(centro, BoxLayout.Y_AXIS));
 
 		
-		JPanel cliente = new JPanel(new GridLayout(3, 2, 10, 10));
-		cliente.setBorder(BorderFactory.createTitledBorder("Dados do Cliente"));
-		cliente.add(lblNome, txtNome);
-		cliente.add(lblCPF, txtCPF);
-		cliente.add(lblCNH, txtCNH);
+	    JPanel painelCliente = new JPanel(new GridLayout(3, 2, 10, 10));
+	    painelCliente.setBorder(BorderFactory.createTitledBorder("Dados do Cliente"));
+	    painelCliente.add(lblNome);
+	    painelCliente.add(txtNome);
+	    painelCliente.add(lblCPF);
+	    painelCliente.add(txtCPF);
+	    painelCliente.add(lblCNH);
+	    painelCliente.add(txtCNH);
 		
 		
-		JPanel veiculo = new JPanel(new GridLayout(4, 2, 10, 10));
-		veiculo.setBorder(BorderFactory.createTitledBorder("Dados do Veículo"));
-		veiculo.add(lblVeiculo, txtVeiculo);
-		veiculo.add(lblPlaca, txtPlaca);
-		veiculo.add(lblCategoria, txtCategoria);
-		veiculo.add(lblDiaria, txtDiaria);
+	    JPanel veiculo = new JPanel(new GridLayout(4, 2, 10, 10));
+	    veiculo.setBorder(BorderFactory.createTitledBorder("Dados do Veículo"));
+	    veiculo.add(lblVeiculo);
+	    veiculo.add(txtVeiculo);
+	    veiculo.add(lblPlaca);
+	    veiculo.add(txtPlaca);
+	    veiculo.add(lblCategoria);
+	    veiculo.add(txtCategoria);
+	    veiculo.add(lblDiaria);
+	    veiculo.add(txtDiaria);
 		
 		
-		JPanel locacao = new JPanel(new GridLayout(3, 2, 10, 10));
-		locacao.setBorder(BorderFactory.createTitledBorder("Dados da Locação"));
-		locacao.add(lblRetirada, txtRetirada);
-		locacao.add(lblDevolucao, txtDevolucao);
-		locacao.add(lblTotal, txtTotal);
+	    JPanel locacao = new JPanel(new GridLayout(3, 2, 10, 10));
+	    locacao.setBorder(BorderFactory.createTitledBorder("Dados da Locação"));
+	    locacao.add(lblRetirada);
+	    locacao.add(txtRetirada);
+	    locacao.add(lblDevolucao);
+	    locacao.add(txtDevolucao);
+	    locacao.add(lblTotal);
+	    locacao.add(txtTotal);
 		
 		JPanel painelBotao = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JButton confirma = new JButton("Confirmar Locação");
 		
 		painelBotao.add(confirma);
 		
-		centro.add(cliente);
+		centro.add(painelCliente);
 		centro.add(veiculo);
 		centro.add(locacao);
 		
@@ -180,13 +185,14 @@ public class TelaLocacao extends JPanel{
 		
 		
 		confirma.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaPrincipal principal = (TelaPrincipal) getTopLevelAncestor();
-		        principal.mostrarTela(new TelaResumoLocacao(principal));
-			}
+		    public void actionPerformed(ActionEvent e) {
+		    	 controller.confirmar(txtRetirada.getText(), txtDevolucao.getText()); 
+		    }
 		});
 		
-		
-		
+	}
+	
+	public void setTxtTotal(String texto) {
+	    txtTotal.setText(texto);
 	}
 }

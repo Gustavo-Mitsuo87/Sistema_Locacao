@@ -23,7 +23,9 @@ public class CarroDAO {
 		categoria.setId_categoria(rs.getInt("id_categoria"));
 		
 		categoria.setNome_categoria(rs.getString("nome_categoria"));
-		categoria.setValor_fixo_diaria(rs.getBigDecimal("valor_fixo_diaria")); 
+		categoria.setValor_fixo_diaria(rs.getBigDecimal("valor_fixo_diaria"));
+		categoria.setValor_seguro(rs.getBigDecimal("valor_seguro"));
+		categoria.setValor_caucao(rs.getBigDecimal("valor_caucao"));
 		
 		carro.setCategoria(categoria);
 		carro.setStatus_disponibilidade(rs.getString("status_disponibilidade"));
@@ -50,7 +52,7 @@ public class CarroDAO {
 
 	
 	public List<Carro> buscarPorPlaca(String placa) throws SQLException {
-		String sql = "SELECT c.*, cat.nome_categoria, cat.valor_fixo_diaria " +
+		String sql = "SELECT c.*, cat.nome_categoria, cat.valor_fixo_diaria, cat.valor_seguro, cat.valor_caucao " +
 		             "FROM carro c " +
 		             "INNER JOIN categoria_carro cat ON c.id_categoria = cat.id_categoria " +
 		             "WHERE TRIM(c.placa) LIKE ?";
@@ -59,7 +61,7 @@ public class CarroDAO {
 
 
 	public List<Carro> listarTodos() throws SQLException {
-		String sql = "SELECT c.*, cat.nome_categoria, cat.valor_fixo_diaria " +
+		String sql = "SELECT c.*, cat.nome_categoria, cat.valor_fixo_diaria, cat.valor_seguro, cat.valor_caucao " +
 		             "FROM carro c " +
 		             "INNER JOIN categoria_carro cat ON c.id_categoria = cat.id_categoria";
 		return consultar(sql, null);
